@@ -1,0 +1,1 @@
+The purpose of this project was to implement the most important features of a simple shell. The only fragments that were modified are these marked with label ```DONE``` - the rest was provided by the lecturer.

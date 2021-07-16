@@ -1,0 +1,1 @@
+The purpose of this project was to implement an efficient algorithm for memory allocation. The only file that was modified is ```mm.c``` - the rest was provided by the lecturer.
