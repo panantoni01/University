@@ -1,0 +1,1 @@
+The purpose of this project was to reverse engineer a binary file ```bomb``` (using e.g. *GDB*). Answers for each phase were placed in ```solution.txt``` file.

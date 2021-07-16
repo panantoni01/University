@@ -1,0 +1,1 @@
+The only files that were modified are ```texture.c``` and ```raport.md```. The rest was provided by the lecturer.
