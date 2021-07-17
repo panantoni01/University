@@ -1,0 +1,222 @@
+\documentclass[a4paper,10pt]{article}
+%\documentclass[a4paper,10pt]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\renewcommand*\contentsname{Spis treści}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{amsthm}
+\usepackage{latexsym}
+\usepackage{pgfplots}
+\usepackage[T1]{fontenc} 
+\usepackage{graphicx} 
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{array}
+\DeclareCaptionFormat{citation}{%
+  \ifx\captioncitation\relax\relax\else
+    \captioncitation\par
+  \fi
+  #1#2#3\par}
+\newcommand*\setcaptioncitation[1]{\def\captioncitation{\textit{Źródło:}~#1}}
+\let\captioncitation\relax
+\captionsetup{format=citation,justification=centering}
+
+\renewcommand{\figurename}{Rys.}
+
+\newtheorem*{lemma*}{Lemat}
+
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 1pt
+    \futurelet \reserved@a \@xhline
+}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+\makeatother
+
+\title{Dystrybuanta rozkładu chi kwadrat}
+\author{Zadanie nr 3}
+\date{Antoni Pokusiński}
+
+\pdfinfo{%
+  /Title    ()
+  /Author   ()
+  /Creator  () 
+  /Producer ()
+  /Subject  ()
+  /Keywords ()
+}
+
+\begin{document}
+\maketitle
+\begin{center}
+	\textbf{\large Wprowadzenie}
+\end{center}
+
+Rozkład chi kwadrat z $k$ stopniami swobody definiuje się jako
+sumę kwadratów $k$ niezależnych zmiennych losowych, które podlegają rozkładowi $N(0,1)$. \\ Niech $X_1, \ldots , X_k$ będą niezależnymi zmiennymi losowymi oraz $X_i \sim N(0,1)$. Jeśli $Z$ to zmienna losowa, taka że
+\[ Z = \sum_{i=1}^k (X_i)^2 \]
+to wówczas:
+\[ Z \sim \chi^2(k) \]
+Funkcja gęstości tego rozkładu to
+\[ f(x) = \frac{1}{2^{k/2}\Gamma(k/2)}\cdot x^{k/2 - 1}e^{-x/2},\: x \in(0, \infty) \]
+Dystrybuanta $G(t)$ rozkładu chi kwadrat jest całką z powyższej funkcji, tj. $G(t) = \int_0^tf(x)\, dx$ dla $t\geq 0$. Naszym zadaniem jest znalezienie jak najlepszego przybliżenia tej całki. W tym celu użyjemy metod całkowania numerycznego - złożonego wzoru trapezów i metody Romberga.
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Złożony wzór trapezów}
+Mając daną funkcję $f(x)$ na przedziale $[a, b]$ możemy oszacować jej całkę używając \textbf{wzoru trapezów}:
+\[ \int_a^bf(x)\, dx \; \approx \; \big(f(a) + f(b)\big) \cdot \frac{b-a}{2} \]
+
+\begin{figure}[ht]
+ \centering
+ \includegraphics[scale=0.35]{trapez1.png}
+ \setcaptioncitation{\texttt{https://en.wikipedia.org/wiki/Trapezoidal\_rule}}
+ \caption{Interpretacja geometryczna wzoru trapezów}
+\end{figure}
+
+Metoda polegająca na oszacowaniu całki przez pole jednego trapezu da zawsze dobre przybliżenie jedynie gdy $f$ jest funkcją liniową - w ogólnym przypadku jest niedokładna. Można jednak zauważyć, że gdyby podzielić przedział $[a, b]$ na wiele równych, małych podprzedziałów, na każdym z nich policzyć przybliżenie całki wzorem trapezów, a następnie zsumować wyniki z tych podprzedziałów, to wówczas dostaniemy zdecydowanie lepsze przybliżenie całki $\int_a^bf(x)\, dx$. Właśnie na tej idei opiera się \textbf{złożony wzór trapezów}.
+
+\begin{figure}[ht]
+ \centering
+ \includegraphics[scale=0.4]{trapez2.png}
+ \setcaptioncitation{\texttt{https://www.math24.net/trapezoidal-rule}}
+ \caption{Interpretacja geometryczna zł. wzoru trapezów}
+\end{figure}
+
+Podzielmy przedział $[a, b]$ na $n$ równych podprzedziałów. Niech $h_n = \frac{b-a}{n}$ oraz $t_i = a + i\,h_n$ dla $0\leq i \leq n$. Zgodnie z podaną wyżej intuicją szacujemy całkę:
+\begin{gather*}
+\int_a^bf(x)\, dx \approx \big(f(t_0)+f(t_1)\big)\frac{h_n}{2} +  \big(f(t_1)+f(t_2)\big)\frac{h_n}{2} + \ldots + \big(f(t_{n-1})+f(n)\big)\frac{h_n}{2} = \\
+= h_n\big(\frac{1}{2}f(t_0) + f(t_1) + \ldots + f(t_{n-1}) + \frac{1}{2}f(t_n)\big) = h_n \sideset{}{''}\sum_{i=0}^n f(t_i)
+\end{gather*}
+ gdzie $\textstyle \sideset{}{''}\sum$ - suma, w której pierwszy i ostatni element mnożymy przez $\frac{1}{2}$. \\
+ Dla wygody wprowadźmy oznaczenie $T_n(f) := h_n \sideset{}{''}\sum_{i=0}^n f(t_i)$.
+\vspace{5mm} %5mm vertical space
+ 
+ Powyższa metoda daje już dość dobre oszacowanie całki. Pozostaje jedynie zauważyć, że większa liczba podprzedziałów, na które podzielimy $[a, b]$, oznacza lepsze przybliżenie, w szczególności $\displaystyle{\lim_{n \to \infty}T_n(f) = \int_a^bf(x)\, dx}$.
+ 
+ \section{Metoda Romberga}
+    \subsection{Opis metody}
+    Metoda Romberga polega na konstrukcji trójkątnej tablicy (jak poniżej) z wykorzystaniem złożonego wzoru trapezu, a następnie pewnej zależności rekurencyjnej. 
+  
+\begin{center}
+\begin{tabular}{ c c c c c c}
+ 
+ $T_{0,0}$ &  &  & & & \\ 
+ $T_{0,1}$ & $T_{1,0}$ &  & & & \\  
+ $T_{0,2}$ & $T_{1,1}$ & $T_{2,0}$ & & & \\
+ $T_{0,3}$ & $T_{1,2}$ & $T_{2,1}$ & $T_{3,0}$ & & \\
+ \vdots & \vdots & \vdots  & \vdots & $\ddots$ & \\
+ $T_{0,m}$ & $T_{1,m-1}$ & $T_{2,m-2}$ & $T_{3,m-3}$ & \ldots & $T_{m,0}$ 
+\end{tabular}
+\end{center} 
+ 
+ Pierwszą kolumnę powyższej tablicy wypełniamy korzystając ze złożonego wzoru trapezów (oznaczenia jak w poprzednim rozdziale): 
+ \[  T_{0k} = T_{2^k}(f) = h_{2^k} \sideset{}{''}\sum_{i=0}^{2^k} f(t_i)\]
+ 
+ Kolejne elementy tablicy obliczamy korzystając z następującej zależności rekurencyjnej:
+ \[ T_{m,k} = \frac{4^mT_{m-1,k+1} - T_{m-1,k}}{4^m - 1} \]
+ Po wyznaczeniu wszystkich wartości w tablicy Romberga należy zwrócić jako wynik $T_{m,0}$ - jest to najlepsze przybliżenie całki.  
+ Pozostaje tylko dodać, że im większą liczbę $m$ ustalimy na początku, tym dokładniejszy wynik uzyskamy. 
+ 
+ \vspace{5mm} %5mm vertical space
+ 
+ Korzystając z podanych do tego momentu narzędzi można już zaimplementować algorytm, który będzie obliczał przybliżenie całki zadanej funkcji na określonym przedziale z bardzo dobrą dokładnością. Można jednak wprowadzić pewne ulepszenia, które znacząco poprawią działanie programu.
+    \subsection{Uwagi implementacyjne}
+    \begin{itemize}
+     \item \textbf{Złożoność pamięciowa}. Naiwna implementacja metody Romberga wymaga użycia trójkątnej tablicy 2-wymiarowej - złożoność jest więc kwadratowa $O(m^2)$. Można jednak zauważyć, że do obliczenia kolumny $i+1$ wystarczy znać jedynie kolumnę $i$. Interesuje nas tylko $T_{m,0}$, więc nie musimy pamiętać wcześniejszych wartości tablicy. Jeśli będziemy obliczać elementy zaczynając "od dołu" kolumny, to okazuje się, że potrzebna jest nam jedynie 1-wymiarowa tablica rozmiaru $m$, czyli dostaniemy w ten sposób złożoność pamięciową $O(m)$.
+     
+     \item \textbf{Obliczanie wartości funkcji}. Przyjrzyjmy się pierwszej kolumnie tablicy Romberga. Zauważmy, że licząc każdy element bezpośrednio ze zł. wzoru trapezów, wielokrotnie obliczamy wartości funkcji $f$ dla tych samych argumentów. W szczególności $f(a)$ i $f(b)$ zostają policzone aż $m$ razy, a np. $f(\frac{b-a}{2})$ -- $m-1$  razy. Można jednak zastosować następujący lemat na obliczanie kolejnego elementu pierwszej kolumny:
+     \begin{lemma*}
+      Niech $T_n(f)$ oznacza złożony wzór trapezów dla n podprzedziałów oraz $M_n(f) = h_n\displaystyle{\sum_{i=1}^n}\;f\big(a+\frac{1}{2}(2i-1)h_n\big)$. Wówczas dla n = 1, 2, 3 ...
+      \[ T_{2n}(f) = \frac{1}{2}\big(T_n(f) + M_n(f)\big) \]
+     \end{lemma*}
+        \begin{proof}[Dowód]
+         \[ T_{2n}(f) = h_{2n}\displaystyle{\sideset{}{''}\sum_{i=0}^{2n}}f(t_i) = h_{2n}\displaystyle{\sideset{}{''}\sum_{i=0}^{n}}f(t_{2i}) + h_{2n}\sum_{i=1}^nf(t_{2i-1}) = \]
+         \[ = \frac{1}{2}T_n(f) + h_{2n}\sum_{i=1}^nf(a+(2i-1)h_{2n}) = \frac{1}{2}T_n(f) + \frac{1}{2}h_n\sum_{i=1}^nf(a+\frac{1}{2}(2i-1)h_{n}) = \]
+         \[ = \frac{1}{2}T_n(f) + \frac{1}{2}M_n(f) \]
+        \end{proof}
+    \end{itemize}
+    \section{Wyniki obliczeń}
+    Dystrybuantę rozkładu $\chi^2$, czyli całkę na zadanym przedziale, obliczamy więc za pomocą złożonego wzoru trapezów i metody Romberga. Należy zauważyć, że metoda Romberga daje dokładniejsze wyniki i ma lepsze zastosowanie praktyczne. (Doświadczenie zostało przeprowadzone w języku Python w arytmetyce 64-bitowej.)
+    
+     \vspace{5mm} %5mm vertical space
+     \large{\textbf{Przykład} dla $\chi^2(4)$ i $t=2$ :}
+     \vspace{5mm} %5mm vertical space
+     
+     \normalsize{Dokładnym wynikiem jest $\frac{e-2}{e} =  0.2642411176571153568...$}
+    
+    \begin{center}
+    \begin{tabular}{ |c|c|c| }
+     \hline
+     \textbf{n} & \textbf{Wynik zł. wzoru trapezów} & \textbf{Rząd błędu} \\
+     \hline
+     $2^{1}$ & 0.24360252522101894 & $10^{-2}$\\
+    \hline
+    $2^{2}$ & 0.2590450401914125 & $10^{-2}$\\
+    \hline
+    $2^{3}$ & 0.26293980164730035 & $10^{-3}$\\
+    \hline
+    $2^{4}$ & 0.2639156448023526 & $10^{-3}$\\
+    \hline
+    $2^{5}$ & 0.26415974044776863 & $10^{-4}$\\
+    \hline
+    $2^{6}$ & 0.2642207727924738 & $10^{-5}$\\
+    \hline
+    $2^{7}$ & 0.26423603140580976 & $10^{-5}$\\
+    \hline
+    $2^{8}$ & 0.2642398460920923 & $10^{-5}$\\
+    \hline
+    $2^{9}$ & 0.26424079976572223 & $10^{-6}$\\
+    \hline
+    $2^{10}$ & 0.2642410381842585 & $10^{-7}$\\
+    \hline
+    $2^{11}$ & 0.26424109778890065 & $10^{-7}$\\
+    \hline
+    \hline
+    & 0.2642411176571153568 & 0 \\
+    \hline
+    \end{tabular}
+    \end{center}
+    Powyższa tabela przedstawia wyniki obliczeń dla złożonego wzoru trapezów. Jak widać, błąd zbiega do 0, jednak jest to dość wolna zbieżność. Zdecydowanie lepiej sprawdza się metoda Romberga:
+    \begin{center}
+    \begin{tabular}{ |c|c|c| }
+    \hline
+     \textbf{n} & \textbf{Wynik $\bm{T_{n0}}$ metody Romberga} & \textbf{Rząd błędu} \\
+     \hline
+    $2^{1}$ & 0.2634901267661182 & $10^{-3}$\\
+    \hline
+    $2^{2}$ & 0.2642393730759054 & $10^{-5}$\\
+    \hline
+    $2^{3}$ & 0.26424111672947576 & $10^{-9}$\\
+    \hline
+    $2^{4}$ & 0.26424111765699954 & $10^{-11}$\\
+    \hline
+    $2^{5}$ & 0.2642411176571154 & $10^{-16}$\\
+    \hline
+    $2^{6}$ & 0.26424111765711533 & $10^{-16}$\\
+    \hline
+    $2^{7}$ & 0.2642411176571154 & $10^{-16}$\\
+    \hline
+    $2^{8}$ & 0.2642411176571152 & $10^{-16}$\\
+    \hline
+    \hline
+    & 0.2642411176571153568 & 0 \\
+    \hline
+    \end{tabular}
+    \end{center}
+    
+    W tym przypadku błąd zbiega do 0 zdecydowanie szybciej - jedyne co zaczyna nas ograniczać to dokładność reprezentacji liczb w arytmetyce zmiennopozycyjnek. Widzimy więc, że metoda Romberga jest efektywnym narzędziem do aprosymowania całek oznaczonych. W szczególności może mieć zastosowanie w teorii prawdopodobieństwa, gdzie często należy z dużą dokładnością przybliżać dystrybuanty zmiennych losowych. 
+   
+
+\end{document}
+
