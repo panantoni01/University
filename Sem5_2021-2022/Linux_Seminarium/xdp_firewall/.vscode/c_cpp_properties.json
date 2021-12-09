@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${default}",
+                "/usr/include/",
+                "/usr/local/include",
+                "/usr/lib/modules/5.11.0-38-generic/build/arch/x86/include/",
+                "/usr/lib/modules/5.11.0-38-generic/build/include/",
+                "/usr/lib/modules/5.11.0-38-generic/build/arch/x86/include/generated/",
+                "/usr/src/linux-hwe-5.11-headers-5.11.0-38/include/uapi"
+            ],
+            "defines": [
+                "KBUILD_MODNAME=\"pinghook\"",
+                "__GNUC__",
+                "__KERNEL__"
+            ],            
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

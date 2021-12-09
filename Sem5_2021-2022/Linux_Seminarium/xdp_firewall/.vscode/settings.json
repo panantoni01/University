@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "netfilter_ipv4.h": "c",
+        "init.h": "c",
+        "kernel.h": "c",
+        "module.h": "c",
+        "ip.h": "c",
+        "netfilter.h": "c"
+    }
+}
