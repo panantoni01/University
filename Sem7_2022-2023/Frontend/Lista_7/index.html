@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO list</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="./script.js"></script>
+  </head>
+  <body>
+    <div class="content">
+        <header class="main_header">
+            <h1 class="main_header__header">Hello!</h1>
+        </header>
+        <form class="todolist_add__form" id="todolist_add_form">
+            <label>
+                <input class="todolist_add__input" id="todolist_input" name="todo" placeholder="What's on your mind?" maxlength="32" />
+            </label>
+            <button class="todolist_add__button" id="todolist_add_button">Add</button>
+        </form>
+        <div class="todolist_header__wrapper">
+            <header class="todolist_header">
+                <h2 class="todolist_header__header" id="todolist_header">TODO list (0 remaining)</h2>
+            </header>
+            <button class="todolist_header__button" id="todolist_clear_button" type="button">Clear all</button>
+        </div>
+        <ul class="todolist_items__ul" id="todolist_items_list"></ul>
+    </div>
+  </body>
+</html>
